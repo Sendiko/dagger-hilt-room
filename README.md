@@ -40,7 +40,7 @@ Singleton is used to make sure that there are only 1 instance are created in on 
   }
 ```
 
-And for every depenency need, we can just add ```@Inject``` to the class's constructor.
+And for every dependency needed, we can just add ```@Inject``` to the class's constructor and will be automatically provided by Dagger Hilt.
 
 ```kotlin
   class TicketRepository @Inject constructor(private val ticketDao: TicketDao)
