@@ -66,6 +66,9 @@ class HomeScreenViewModel @Inject constructor(
             is HomeScreenEvents.OnDeleteTicket -> viewModelScope.launch {
                 repository.removeTicket(event.ticket)
             }
+            is HomeScreenEvents.OnShowDialog -> _state.update {
+                it.copy(isShowingDialog = event.isShowing)
+            }
             HomeScreenEvents.OnSaveTicket -> viewModelScope.launch {
                 repository.saveTicket(
                     ticket = Ticket(
