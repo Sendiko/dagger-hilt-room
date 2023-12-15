@@ -7,5 +7,6 @@ data class HomeScreenState(
     val concertName: String = "",
     val artistPerforming: String = "",
     val date: String = "",
-    val ticketList: List<Ticket> = emptyList()
+    val ticketList: List<Ticket> = emptyList(),
+    val isShowingDialog: Boolean = false,
 )
