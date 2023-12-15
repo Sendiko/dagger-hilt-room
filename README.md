@@ -28,8 +28,7 @@ I use the Dagger Hilt to provide Room Database, Dao, and Repository.
     }
   }
 ```
-
-since i provide the database instace in the Hilt Module, i don't need to create an instance in the AppDatabase.kt, those there is only dao and databse declaration.
+Singleton is used to make sure that there are only 1 instance are created in on lifecycle. since i provide the database instace in the Hilt Module, i don't need to create an instance in the AppDatabase.kt, those there is only dao and database declaration.
 ```kotlin
   @Database(
     entities = [Ticket::class],
