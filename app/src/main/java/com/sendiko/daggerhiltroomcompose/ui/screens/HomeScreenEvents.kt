@@ -9,5 +9,6 @@ sealed class HomeScreenEvents {
     data class OnDateInput(val date: String): HomeScreenEvents()
     data class OnClearValue(val field: String): HomeScreenEvents()
     data class OnDeleteTicket(val ticket: Ticket): HomeScreenEvents()
+    data class OnShowDialog(val isShowing: Boolean): HomeScreenEvents()
     data object OnSaveTicket: HomeScreenEvents()
 }
