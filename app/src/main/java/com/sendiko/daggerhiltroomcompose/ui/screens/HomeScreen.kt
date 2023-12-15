@@ -1,5 +1,6 @@
 package com.sendiko.daggerhiltroomcompose.ui.screens
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.AirplaneTicket
 import androidx.compose.material.icons.rounded.CalendarToday
+import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Stadium
 import androidx.compose.material.icons.rounded.Stars
 import androidx.compose.material3.Button
@@ -19,6 +21,7 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,8 +37,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.sendiko.daggerhiltroomcompose.R
+import com.sendiko.daggerhiltroomcompose.ui.components.CustomDialog
 import com.sendiko.daggerhiltroomcompose.ui.components.CustomTextField
 import com.sendiko.daggerhiltroomcompose.ui.components.TicketCard
+import com.sendiko.daggerhiltroomcompose.ui.components.poweredBy
 import com.stevdzasan.messagebar.ContentWithMessageBar
 import com.stevdzasan.messagebar.rememberMessageBarState
 import kotlinx.coroutines.launch
@@ -75,10 +81,34 @@ fun HomeScreen(
                     title = {
                         Text(text = "Dagger-Hilt-Room")
                     },
-                    scrollBehavior = scrollBehavior
+                    scrollBehavior = scrollBehavior,
+                    actions = {
+                        IconButton(
+                            onClick = {
+                                viewModel.onEvent(HomeScreenEvents.OnShowDialog(!state.isShowingDialog))
+                            },
+                            content = {
+                                Icon(
+                                    imageVector = Icons.Rounded.MoreVert,
+                                    contentDescription = "More"
+                                )
+                            }
+                        )
+                    }
                 )
             },
         ) {
+            AnimatedVisibility(visible = state.isShowingDialog) {
+                CustomDialog(
+                    title = "About Us",
+                    image = R.drawable.logo_long,
+                    description = poweredBy,
+                    onConfirmAction = { viewModel.onEvent(HomeScreenEvents.OnShowDialog(!state.isShowingDialog)) },
+                    onDismissRequest = {
+                        viewModel.onEvent(HomeScreenEvents.OnShowDialog(!state.isShowingDialog))
+                    }
+                )
+            }
             if (bottomSheetState.isVisible) {
                 ModalBottomSheet(
                     onDismissRequest = {
